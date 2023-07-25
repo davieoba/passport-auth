@@ -19,9 +19,10 @@ const buttonVariants = cva(
     }
   }
 )
+
 const Button = () => {
   return (
-    <div>Button</div>
+    <button>Button</button>
   )
 }
 
