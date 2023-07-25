@@ -13,7 +13,7 @@ passport.deserializeUser(async (id, done) => {
 })
 
 passport.use(new GoogleStrategy({
-  callbackURL: '',
+  callbackURL: '/api/v1/auth/google/redirect',
   clientID: config.GOOGLE_PLUS_CLIENT_ID,
   clientSecret: config.GOOGLE_PLUS_CLIENT_SECRET
 }, async function (accessToken, refreshToken, profile, done) {
