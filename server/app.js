@@ -6,10 +6,11 @@ const path = require('path')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
+const passport = require('passport')
 const AuthRoutes = require('./routes/auth-routes')
 require('./utils/passport')
 const { MONGODB_URI, SESSION_KEY } = require('./utils/config')
-const passport = require('passport')
+const { checkCookie } = require('./utils/middleware')
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
@@ -34,5 +35,9 @@ app.use(passport.session())
 
 
 app.use('/api/v1/auth', AuthRoutes)
+app.use('/protected', checkCookie, (req, res, next) => {
+  // render the page
+  res.redirect('/dashboard')
+})
 
 module.exports = app

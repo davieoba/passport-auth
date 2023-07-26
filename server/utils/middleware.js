@@ -10,9 +10,9 @@ exports.checkCookie = (req, res, next) => {
     if (req.user) {
       next()
     } else {
-      res.send('Cookie is not valid')
+      res.redirect('/auth/login')
     }
   } else {
-    res.send('No cookie found')
+    res.redirect('/auth/login')
   }
 }
