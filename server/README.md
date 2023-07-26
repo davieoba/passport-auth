@@ -1,0 +1,2 @@
+- [ ] create protected route
+- [ ] create an authorized endpoint 

@@ -4,18 +4,21 @@
   "description": "learning passport and client side rendering authentication",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "rm -rf ./dist && cd ../client && rm -rf ./dist && npm run build && mv ./dist ../server"
   },
   "author": "David Bodunrin",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mongoose": "^7.4.1",
     "nodemon": "^3.0.1",
-    "passport": "^0.6.0",
+    "passport": "^0.5.3",
     "passport-google-oauth20": "^2.0.0"
   }
 }

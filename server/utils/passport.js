@@ -17,7 +17,7 @@ passport.use(new GoogleStrategy({
   clientID: config.GOOGLE_PLUS_CLIENT_ID,
   clientSecret: config.GOOGLE_PLUS_CLIENT_SECRET
 }, async function (accessToken, refreshToken, profile, done) {
-  const user = await userModel.findOne({ googleId: profile.id })
+  const user = await User.findOne({ googleId: profile.id })
 
   if (user) return done(null, user)
 
