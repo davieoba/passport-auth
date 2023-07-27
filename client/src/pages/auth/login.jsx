@@ -1,3 +1,4 @@
+import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
 
@@ -5,6 +6,34 @@ const Login = () => {
   const styles = {
     label: `text-[1.4rem] font-medium block`,
     input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
+  }
+
+  const fetchUser = async () => {
+    const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+
+    console.log(data.data)
+  }
+
+  const handleGoogleSSO = () => {
+    let timer = null
+    const newAuthWindow = window.open('http://localhost:5000/api/v1/auth/google', '_blank', 'width=500, height=600')
+
+    if (newAuthWindow) {
+      timer = setInterval(() => {
+        if (newAuthWindow.closed) {
+          console.log('Authenticated')
+          fetchUser()
+
+          if (timer) {
+            clearInterval(timer)
+          }
+        }
+      }, 500)
+    }
+
+    // send a fetch request to an endpoint to fetch the user
+
+    // also send a request with credentials to a protected route to see if u are allowed in
   }
 
   return (
@@ -38,12 +67,12 @@ const Login = () => {
 
           <section>
             <div>
-              <a
-                href='http://localhost:5000/api/v1/auth/google'
+              <button
+                onClick={handleGoogleSSO}
                 className="text-[1.4rem] font-medium px-4 h-[4rem] border rounded-md w-full flex items-center justify-center gap-x-6">
                 <span className='text-[1.4rem]'>Google</span>
                 <img src={Google} alt='google' className="h-8 w-8" />
-              </a>
+              </button>
             </div>
           </section>
         </div>

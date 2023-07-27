@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "build": "rm -rf ./dist && cd ../client && rm -rf ./dist && npm run build && mv ./dist ../server"
+    "build": "rm -rf ./dist && cd ../client && rm -rf ./dist && npm run build && cp -r ./dist ../server"
   },
   "author": "David Bodunrin",
   "license": "ISC",

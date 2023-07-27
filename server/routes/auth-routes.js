@@ -29,7 +29,8 @@ router.get('/google/redirect', sign_in_with_google, async (req, res, next) => {
   console.log('req.user', req.user)
 
   res.cookie('token', 'some-cookie-very-serious-data', { secure: false, httpOnly: false, expires: expirationDate })
-  res.redirect('/dashboard')
+
+  res.end()
 })
 
 module.exports = router

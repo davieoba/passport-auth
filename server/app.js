@@ -8,9 +8,10 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const passport = require('passport')
 const AuthRoutes = require('./routes/auth-routes')
+const UserRoutes = require('./routes/user-routes')
 require('./utils/passport')
 const { MONGODB_URI, SESSION_KEY } = require('./utils/config')
-const { checkCookie } = require('./utils/middleware')
+
 
 mongoose.connect(MONGODB_URI)
   .then(() => {
@@ -19,11 +20,14 @@ mongoose.connect(MONGODB_URI)
     console.log('😞❗ Error connecting to MongoDB', err)
   })
 
+
+// app.use(bodyParser.urlencoded({ extended: true }))
+// app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'dist')))
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
 app.use(cookieSession({
   maxAge: 60 * 60 * 1000,
   expires: 60 * 60 * 1000,
@@ -35,9 +39,6 @@ app.use(passport.session())
 
 
 app.use('/api/v1/auth', AuthRoutes)
-app.use('/protected', checkCookie, (req, res, next) => {
-  // render the page
-  res.redirect('/dashboard')
-})
+app.use('/api/v1', UserRoutes)
 
 module.exports = app

@@ -12,7 +12,7 @@ const Home = () => {
         <section className="flex justify-end">
           <button
             className='rounded-md py-3 px-4 border text-[1.4rem]'
-            onClick={() => navigate('/protected')}>Go to the dashboard</button>
+            onClick={() => navigate('/dashboard')}>Go to the dashboard</button>
         </section>
         <h1 className="text-2xl font-bold"> Welcome (user) to the home page </h1>
       </main>
