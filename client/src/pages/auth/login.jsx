@@ -1,8 +1,13 @@
 import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
+import { useStore } from '../../features/store'
+import { useState } from 'react'
+import { Navigate } from 'react-router-dom'
 
 const Login = () => {
+  const [userData, setUserData] = useState(null)
+
   const styles = {
     label: `text-[1.4rem] font-medium block`,
     input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
@@ -11,8 +16,10 @@ const Login = () => {
   const fetchUser = async () => {
     const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
 
-    console.log(data.data)
+    console.log('fetch the user information', data.data.user)
+    setUserData(data.data.user)
   }
+  useStore((state) => state.user = userData)
 
   const handleGoogleSSO = () => {
     let timer = null
@@ -30,7 +37,7 @@ const Login = () => {
         }
       }, 500)
     }
-
+    <Navigate to="/dashboard" replace={true} />
     // send a fetch request to an endpoint to fetch the user
 
     // also send a request with credentials to a protected route to see if u are allowed in

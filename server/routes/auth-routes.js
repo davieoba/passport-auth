@@ -8,6 +8,12 @@ router.get('/', (req, res, user) => {
   res.send(req.cookies)
 })
 
+router.get('/logout', (req, res, next) => {
+  req.logout()
+  req.user = null
+  res.redirect('/')
+})
+
 router.get('/check-cookie', checkCookie, (req, res, next) => {
   res.send('protected route accessible')
 })
@@ -28,7 +34,7 @@ router.get('/google/redirect', sign_in_with_google, async (req, res, next) => {
   // console.log({ expirationDate })
   console.log('req.user', req.user)
 
-  res.cookie('token', 'some-cookie-very-serious-data', { secure: false, httpOnly: false, expires: expirationDate })
+  res.cookie('token', 'some-cookie-very-serious-data', { secure: true, httpOnly: true, expires: expirationDate })
 
   res.end()
 })
