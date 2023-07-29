@@ -16,7 +16,7 @@ export const Navbar = () => {
         <Link to='/'>Sage</Link>
       </h1>
       <div className="flex justify-end gap-x-12 items-center">
-        {data.user ? (
+        {data?.user ? (
           <button
             onClick={async () => {
               console.log('log out the user')
