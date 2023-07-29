@@ -19,9 +19,14 @@ const Home = () => {
       <Navbar />
       <main className="col-span-full px-24 py-12 space-y-12">
         <section className="flex justify-end">
-          <button
-            className='rounded-md py-3 px-4 border text-[1.4rem]'
-            onClick={() => navigate('/dashboard')}>Go to the dashboard</button>
+          {['admin', 'user'].includes(data?.user.role) ? (
+            <button
+              className='rounded-md py-3 px-4 border text-[1.4rem]'
+              onClick={() => navigate('/dashboard')}>
+              Go to the dashboard
+            </button>
+          ) : null}
+
         </section>
         <h1 className="text-2xl font-bold"> Welcome {data && data?.user?.name} to the home page </h1>
       </main>
