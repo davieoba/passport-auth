@@ -10,12 +10,12 @@ const Home = () => {
     return response.data
   }
 
-  const { isError, data } = useQuery(['getUserData'], fetchUser)
+  const { isError, data } = useQuery(['getUserData'], fetchUser, { retry: 2 })
 
   console.log({ isError, data })
 
   return (
-    <>
+    <div className="grid grid-cols-12">
       <Navbar />
       <main className="col-span-full px-24 py-12 space-y-12">
         <section className="flex justify-end">
@@ -30,7 +30,7 @@ const Home = () => {
         </section>
         <h1 className="text-2xl font-bold"> Welcome {data && data?.user?.name} to the home page </h1>
       </main>
-    </>
+    </div>
   )
 }
 
