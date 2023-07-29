@@ -1,9 +1,7 @@
+import { useState } from 'react'
 import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
-import { Navigate } from 'react-router-dom'
-// import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
 
 const styles = {
   label: `text-[1.4rem] font-medium block`,
@@ -14,13 +12,18 @@ const Login = () => {
   const [errorAuthMessage, setErrorAuthMessage] = useState(null)
 
   const fetchUser = async () => {
-    let status, url, message
+    let status, message
+    // eslint-disable-next-line no-unused-vars
+    let url = ''
+
     const response = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true }).catch((err) => {
       status = err.response.status
       url = err.response.data.redirectUrl
-      // message = err.response
+      message = err.response.data.message
 
-      console.log({ status, url, message })
+      setTimeout(() => {
+        setErrorAuthMessage(null)
+      }, 5000)
     })
 
     if (status === 401) {
@@ -48,7 +51,6 @@ const Login = () => {
         }
       }, 500)
     }
-    <Navigate to="/dashboard" replace={true} />
   }
 
   return (

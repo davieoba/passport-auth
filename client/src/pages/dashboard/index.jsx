@@ -1,18 +1,23 @@
 /* eslint-disable react/prop-types */
 import { Dialog } from '@headlessui/react'
 import { Navbar } from "../../components/navbar"
-import { useStore } from "../../features/store"
 import { useState } from 'react'
 import axios from 'axios'
 import { SvgSpinners90Ring } from '../../components/icons'
+import { useQuery } from '@tanstack/react-query'
 
 const Dashboard = () => {
-  let [isOpen, setIsOpen] = useState(true)
-  const user = useStore(store => store.user)
+  let [isOpen, setIsOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState([])
 
-  // bring in react-query to this page
+  const fetchUser = async () => {
+    const response = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+    return response.data
+  }
+
+  const { data } = useQuery(['getUserData'], fetchUser)
+
 
   const fetchAllUsers = async () => {
     setIsOpen(true)
@@ -25,6 +30,8 @@ const Dashboard = () => {
     }, 3000)
   }
 
+  console.log({ users })
+
   return (
     <div>
       <Navbar />
@@ -36,13 +43,17 @@ const Dashboard = () => {
           </h1>
 
           <h2 className="text-[1.4rem] font-medium">
-            Welcome, {user && user.name}
+            Welcome, {data && data?.user?.name}
           </h2>
 
-          <button
+          {data?.user?.role === 'admin' ? (
+            <button
             onClick={fetchAllUsers}
             className="text-[1.4rem] px-4 py-3 font-medium rounded-md border">View all users
-          </button>
+            </button>) : null
+          }
+
+
         </section>
       </section>
 

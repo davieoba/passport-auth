@@ -1,26 +1,19 @@
+import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router-dom"
-
-// import axios from "axios"
+import axios from "axios"
 import { Navbar } from "../../components/navbar"
-import { useStore } from "../../features/store"
 
 const Home = () => {
   const navigate = useNavigate()
-  const user = useStore((state) => state.user)
+  const fetchUser = async () => {
+    const response = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+    return response.data
+  }
 
-  // fetch the user name and details here
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+  const { isError, data } = useQuery(['getUserData'], fetchUser)
 
-  //     // console.log(data.data)
-  //     setUser(data.data)
-  //   }
+  console.log({ isError, data })
 
-  //   fetchUser()
-  // }, [])
-
-  // console.log({ user })
   return (
     <>
       <Navbar />
@@ -30,7 +23,7 @@ const Home = () => {
             className='rounded-md py-3 px-4 border text-[1.4rem]'
             onClick={() => navigate('/dashboard')}>Go to the dashboard</button>
         </section>
-        <h1 className="text-2xl font-bold"> Welcome {user && user.user.name} to the home page </h1>
+        <h1 className="text-2xl font-bold"> Welcome {data && data?.user?.name} to the home page </h1>
       </main>
     </>
   )
