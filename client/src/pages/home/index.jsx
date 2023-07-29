@@ -1,28 +1,24 @@
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
-import axios from "axios"
+
+// import axios from "axios"
 import { Navbar } from "../../components/navbar"
 import { useStore } from "../../features/store"
 
 const Home = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState(null)
-
-  useStore((state) => {
-    console.log('zustand user', state.user)
-  })
+  const user = useStore((state) => state.user)
 
   // fetch the user name and details here
-  useEffect(() => {
-    const fetchUser = async () => {
-      const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
 
-      // console.log(data.data)
-      setUser(data.data)
-    }
+  //     // console.log(data.data)
+  //     setUser(data.data)
+  //   }
 
-    fetchUser()
-  }, [])
+  //   fetchUser()
+  // }, [])
 
   // console.log({ user })
   return (

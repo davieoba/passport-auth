@@ -2,11 +2,12 @@ const router = require('express').Router()
 const User = require('../models/user-model')
 const { checkCookie, restrictedRole } = require('../utils/middleware')
 
-
 router.get('/user', checkCookie, (req, res, next) => {
+  console.log('the user', req.user)
   console.log('you were able to get the user')
   res.status(200).json({
-    user: req.user
+    user: req.user,
+    redirectUrl: '/'
   })
 })
 

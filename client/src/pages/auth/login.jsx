@@ -1,25 +1,36 @@
 import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
-import { useStore } from '../../features/store'
-import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
+// import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
+
+const styles = {
+  label: `text-[1.4rem] font-medium block`,
+  input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
+}
 
 const Login = () => {
-  const [userData, setUserData] = useState(null)
-
-  const styles = {
-    label: `text-[1.4rem] font-medium block`,
-    input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
-  }
+  const [errorAuthMessage, setErrorAuthMessage] = useState(null)
 
   const fetchUser = async () => {
-    const data = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true })
+    let status, url, message
+    const response = await axios.get('http://localhost:5000/api/v1/user', { withCredentials: true }).catch((err) => {
+      status = err.response.status
+      url = err.response.data.redirectUrl
+      // message = err.response
 
-    console.log('fetch the user information', data.data.user)
-    setUserData(data.data.user)
+      console.log({ status, url, message })
+    })
+
+    if (status === 401) {
+      return setErrorAuthMessage(message)
+    }
+
+    // return response.data.user
+    console.log('fetch the user information', response.data.user)
+    window.location.href = '/'
   }
-  useStore((state) => state.user = userData)
 
   const handleGoogleSSO = () => {
     let timer = null
@@ -38,9 +49,6 @@ const Login = () => {
       }, 500)
     }
     <Navigate to="/dashboard" replace={true} />
-    // send a fetch request to an endpoint to fetch the user
-
-    // also send a request with credentials to a protected route to see if u are allowed in
   }
 
   return (
@@ -50,6 +58,7 @@ const Login = () => {
       <section className="col-span-full mx-auto flex justify-center py-24">
         <div className="w-[40rem] border rounded-xl p-8 space-y-8">
           <form className="space-y-8">
+            {errorAuthMessage && <p className='text-red-500 text-[1.4rem] font-medium'> {errorAuthMessage} </p>}
             <h1 className="font-medium text-[1.5rem]">Login</h1>
             <div>
               <label htmlFor="email" className={styles.label}>Email</label>

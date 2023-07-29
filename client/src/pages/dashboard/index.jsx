@@ -6,11 +6,13 @@ import { useState } from 'react'
 import axios from 'axios'
 import { SvgSpinners90Ring } from '../../components/icons'
 
-const ProtectedPage = () => {
+const Dashboard = () => {
   let [isOpen, setIsOpen] = useState(true)
   const user = useStore(store => store.user)
   const [loading, setLoading] = useState(true)
   const [users, setUsers] = useState([])
+
+  // bring in react-query to this page
 
   const fetchAllUsers = async () => {
     setIsOpen(true)
@@ -49,7 +51,7 @@ const ProtectedPage = () => {
   )
 }
 
-export default ProtectedPage
+export default Dashboard
 
 const Modal = ({ isOpen, setIsOpen, users, loading }) => {
   const styles = {
@@ -70,7 +72,7 @@ const Modal = ({ isOpen, setIsOpen, users, loading }) => {
           </Dialog.Description>
 
           {loading ?
-            <SvgSpinners90Ring />
+            <SvgSpinners90Ring className='h-10 w-10' />
             :
             (
               <ul className='text-[1.4rem] font-medium space-y-3'>

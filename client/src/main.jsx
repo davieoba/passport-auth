@@ -4,7 +4,8 @@ import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './pages/auth/login.jsx'
-import ProtectedPage from './pages/protected/index.jsx'
+import Dashboard from './pages/dashboard/index.jsx'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -17,12 +18,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <ProtectedPage />
+    element: <Dashboard />
   }
 ])
 
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>,
 )

@@ -33,7 +33,6 @@ router.get('/google/redirect', sign_in_with_google, async (req, res, next) => {
 
   // console.log({ expirationDate })
   console.log('req.user', req.user)
-
   res.cookie('token', 'some-cookie-very-serious-data', { secure: true, httpOnly: true, expires: expirationDate })
 
   res.end()
