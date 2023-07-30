@@ -10,9 +10,7 @@ const Home = () => {
     return response.data
   }
 
-  const { isError, data } = useQuery(['getUserData'], fetchUser, { retry: 2 })
-
-  console.log({ isError, data })
+  const { data } = useQuery(['getUserData'], fetchUser, { retry: 2 })
 
   return (
     <div className="grid grid-cols-12">

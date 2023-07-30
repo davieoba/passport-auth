@@ -2,9 +2,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from "./pages/Home"
 import Login from './pages/auth/login'
 import Dashboard from './pages/dashboard'
-import { useAuth } from './hooks'
+
 import Register from './pages/auth/register'
 import Protected from './components/protected'
+
 
 const router = createBrowserRouter([
   {
@@ -20,20 +21,16 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    element: <Protected />,
-    children: [
-      {
-        path: '/dashboard',
-        element: <Dashboard />
-      }
-    ]
+    path: '/dashboard',
+    element: (
+      <Protected>
+        <Dashboard />
+      </Protected>
+    )
   }
 ])
 
 function App() {
-  const { isLoggedIn } = useAuth()
-
-  console.log({ isLoggedIn })
 
   return (
     <section>

@@ -30,7 +30,6 @@ const Dashboard = () => {
     }, 3000)
   }
 
-  console.log({ users })
 
   return (
     <div>
