@@ -3,6 +3,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks'
 import { useEffect, useState } from 'react'
 import { SvgSpinners90Ring } from '../icons'
+import { Navbar } from '../navbar'
 
 function Protected({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
@@ -33,8 +34,11 @@ export default Protected
 
 const LoadingPage = () => {
   return (
-    <div className='flex items-center justify-center h-screen overflow-hidden'>
-      <SvgSpinners90Ring className='h-12 w-12' />
+    <div className='grid grid-cols-12'>
+      <Navbar />
+      <div className='col-span-full flex items-center justify-center h-screen overflow-hidden'>
+        <SvgSpinners90Ring className='h-12 w-12' />
+      </div>
     </div>
   )
 }
