@@ -21,13 +21,11 @@ function Protected({ children }) {
 
   if (isAuthenticated === null) {
     return (
-      <p>
+      <div>
         {loading ? <LoadingPage /> : null}
-      </p>
+      </div>
     )
   }
-
-  console.log({ isAuthenticated })
 
   return isAuthenticated ? children : <Navigate to={'/auth/login'} state={{ from: location }} replace />
 }

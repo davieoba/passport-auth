@@ -4,6 +4,9 @@
 4. if a user tries to access the dashboard without logging in redirect them to the login page
 5. after creating protected route, if a user directly inputs the link to the protected route in the browser url it will not work propely fix that (done)
 [Stackoverflow Question](https://stackoverflow.com/questions/70713340/logged-in-user-redirects-to-login-page-when-entering-url-manually-react-js)
+6. create an admin dashboard
+7. work with passport and credentials for register
+8. work with passport and credentials for login
 
 according to chat gpt user role, and email address are considered non-sensitive information however,
 1. the user name and email can be accessed easily by attackers and used for cross-site scripting attacks, 
@@ -13,3 +16,6 @@ according to chat gpt user role, and email address are considered non-sensitive 
 solution
 1. Encrypt the data to be stored in the localstorage
 2. fetching data anytime i need it in my client and not actually persisting it in the localstorage, i think this is where libraries like react-query and swr really shine because it makes it very easy to fetch, persist and it handles some other really nice quirks that can come in handly for the developer.
+
+<!-- I love this code -->
+[github](https://github.com/forinda/react-router-protected-routes-ts)
