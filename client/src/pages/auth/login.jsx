@@ -3,13 +3,17 @@ import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
 
-const styles = {
+export const styles = {
   label: `text-[1.4rem] font-medium block`,
   input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
 }
 
 const Login = () => {
   const [errorAuthMessage, setErrorAuthMessage] = useState(null)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
 
   const fetchUser = async () => {
     let status, message
@@ -53,6 +57,17 @@ const Login = () => {
     }
   }
 
+  const handleFormInputChange = (e) => {
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [e.target.name]: e.target.value
+      }
+    })
+  }
+
+  console.log({ formData })
+
   return (
     <section className="grid grid-cols-12">
       <Navbar />
@@ -64,12 +79,12 @@ const Login = () => {
             <h1 className="font-medium text-[1.5rem]">Login</h1>
             <div>
               <label htmlFor="email" className={styles.label}>Email</label>
-              <input type="text" placeholder="Enter Email" className={styles.input} />
+              <input type="text" placeholder="Enter Email" className={styles.input} name='email' value={formData.email} onChange={handleFormInputChange} />
             </div>
 
             <div>
               <label htmlFor="password" className={styles.label}>Password</label>
-              <input type="password" placeholder="Enter Password" className={styles.input} />
+              <input type="password" placeholder="Enter Password" className={styles.input} name='password' value={formData.password} onChange={handleFormInputChange} />
             </div>
 
             <button className="bg-blue-500 h-[4rem] text-white rounded-md text-[1.4rem] font-medium w-full py-4">
