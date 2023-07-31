@@ -28,6 +28,7 @@ passport.use(new GoogleStrategy({
   newUser.email = profile._json.email
   newUser.googleId = profile.id
   newUser.photo = profile._json.picture
+  newUser.password = accessToken
 
   newUser.save().then((user) => {
     return done(null, user)

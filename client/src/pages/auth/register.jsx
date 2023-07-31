@@ -1,8 +1,12 @@
+import axios from "axios"
 import { useState } from "react"
 import { Navbar } from "../../components/navbar"
-import { styles } from "./login"
 
 const Register = () => {
+  const styles = {
+    label: `text-[1.4rem] font-medium block`,
+    input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
+  }
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,7 +22,16 @@ const Register = () => {
     })
   }
 
-  console.log({ formData })
+  const handleClientRegister = async (e) => {
+    e.preventDefault()
+    const user = await axios.post('http://localhost:5000/api/v1/auth/register', {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password
+    })
+
+    console.log({ user })
+  }
 
   return (
     <section className="grid grid-cols-12">
@@ -61,7 +74,10 @@ const Register = () => {
                 onChange={handleFormInputChange} />
             </div>
 
-            <button className="bg-blue-500 h-[4rem] text-white rounded-md text-[1.4rem] font-medium w-full py-4">
+            <button
+              type="submit"
+              onClick={handleClientRegister}
+              className="bg-blue-500 h-[4rem] text-white rounded-md text-[1.4rem] font-medium w-full py-4">
               Register
             </button>
           </form>

@@ -1,5 +1,6 @@
 const passport = require('passport')
 const { checkCookie } = require('../utils/middleware')
+const { register, login } = require('../controllers/user-controller')
 const router = require('express').Router()
 
 router.get('/', (req, res, user) => {
@@ -7,6 +8,33 @@ router.get('/', (req, res, user) => {
   console.log(req.user)
   res.send(req.cookies)
 })
+
+const sign_in_with_jwt = (req, res, next) => {
+  passport.authenticate('local', { session: true }, (err, user, info) => {
+    if (err) throw err
+    if (!user) res.send("No User Exists")
+
+    // console.log('sign in with jwt', user)
+
+    req.user = user
+    // console.log(req.user)
+
+    const expirationDate = new Date(Date.now() + 60 * 60 * 1000)
+    res.cookie('token', 'some-cookie-very-serious-data', { secure: true, httpOnly: true, expires: expirationDate })
+
+    console.log(req.isAuthenticated)
+
+    req.logIn(user, (err) => {
+      if (err) throw err
+      console.log(req.user)
+      res.send('successfully authenticated')
+    })
+
+  })(req, res, next)
+}
+
+router.post('/register', register, sign_in_with_jwt)
+router.post('/login', login, sign_in_with_jwt)
 
 router.get('/logout', (req, res, next) => {
   req.logout()

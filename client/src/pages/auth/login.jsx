@@ -3,12 +3,11 @@ import axios from 'axios'
 import Google from '../../assets/MdiGoogle.svg'
 import { Navbar } from '../../components/navbar'
 
-export const styles = {
-  label: `text-[1.4rem] font-medium block`,
-  input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
-}
-
 const Login = () => {
+  const styles = {
+    label: `text-[1.4rem] font-medium block`,
+    input: `text-[1.4rem] h-[4rem] font-medium px-4 rounded-md border w-full`
+  }
   const [errorAuthMessage, setErrorAuthMessage] = useState(null)
   const [formData, setFormData] = useState({
     email: '',
@@ -66,7 +65,16 @@ const Login = () => {
     })
   }
 
-  console.log({ formData })
+  const handleLoginCredentials = async (e) => {
+    e.preventDefault()
+
+    const response = await axios.post('http://localhost:5000/api/v1/auth/login', {
+      email: formData.email,
+      password: formData.password
+    })
+
+    console.log('this is the login response', response.data)
+  }
 
   return (
     <section className="grid grid-cols-12">
@@ -87,7 +95,10 @@ const Login = () => {
               <input type="password" placeholder="Enter Password" className={styles.input} name='password' value={formData.password} onChange={handleFormInputChange} />
             </div>
 
-            <button className="bg-blue-500 h-[4rem] text-white rounded-md text-[1.4rem] font-medium w-full py-4">
+            <button
+              type='submit'
+              onClick={handleLoginCredentials}
+              className="bg-blue-500 h-[4rem] text-white rounded-md text-[1.4rem] font-medium w-full py-4">
               Login
             </button>
           </form>

@@ -6,10 +6,12 @@ const path = require('path')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
+const expressSession = require('express-session')
 const passport = require('passport')
 const AuthRoutes = require('./routes/auth-routes')
 const UserRoutes = require('./routes/user-routes')
 require('./utils/passport')
+require('./utils/passport-local')
 const { MONGODB_URI, SESSION_KEY } = require('./utils/config')
 
 
@@ -27,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'dist')))
 
 
 app.use(express.json())
-app.use(cookieParser())
+app.use(cookieParser(SESSION_KEY))
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
 app.use(cookieSession({
   sameSite: 'strict',
@@ -36,6 +38,12 @@ app.use(cookieSession({
   expires: 60 * 60 * 1000,
   keys: [SESSION_KEY]
 }))
+
+// app.use(expressSession({
+//   secret: SESSION_KEY,
+//   resave: true,
+//   saveUninitialized: true
+// }))
 
 app.use(passport.initialize())
 app.use(passport.session())
