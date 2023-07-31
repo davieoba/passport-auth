@@ -103,6 +103,10 @@ const Login = () => {
             </button>
           </form>
 
+          <section className='flex items-center justify-end'>
+            <span className='text-[1.4rem] font-medium text-blue-500 hover:underline cursor-pointer'>Forgot password</span>
+          </section>
+
           <section className="flex items-center gap-x-8">
             <div className="h-1 flex-grow bg-slate-200"></div>
             <div className="font-medium text-[1.4rem] uppercase">OR</div>
