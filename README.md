@@ -4,11 +4,12 @@
 4. if a user tries to access the dashboard without logging in redirect them to the login page
 5. after creating protected route, if a user directly inputs the link to the protected route in the browser url it will not work propely fix that (done)
 [Stackoverflow Question](https://stackoverflow.com/questions/70713340/logged-in-user-redirects-to-login-page-when-entering-url-manually-react-js)
-6. create an admin dashboard
-7. work with passport and credentials for register
-8. work with passport and credentials for login
+6. create an admin dashboard 
+7. work with passport and credentials for register (done)
+8. work with passport and credentials for login (done)
 9. what if a user signup with google and the next time they come they want to login with credential how do i handle that scenario 
 -- solution -- For users who choose to log in with credentials, you'll need to prompt them to create a password for their account / prompt them to use forgot password since they did remember that they never made use of credentials to signup in the first place. This password will be used in conjunction with their username/email for future logins.
+10. create forgot-password 
 
 according to chat gpt user role, and email address are considered non-sensitive information however,
 1. the user name and email can be accessed easily by attackers and used for cross-site scripting attacks, 

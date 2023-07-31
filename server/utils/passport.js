@@ -2,6 +2,7 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const config = require('./config')
 const User = require('../models/user-model')
+const bcrypt = require('bcryptjs')
 
 passport.serializeUser((user, done) => {
   done(null, user.id)
@@ -28,7 +29,8 @@ passport.use(new GoogleStrategy({
   newUser.email = profile._json.email
   newUser.googleId = profile.id
   newUser.photo = profile._json.picture
-  newUser.password = accessToken
+  // create an extremely random password making use of the user's credential recieved from google.
+  newUser.password = await bcrypt.hash(accessToken, 10)
 
   newUser.save().then((user) => {
     return done(null, user)
