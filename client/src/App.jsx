@@ -6,6 +6,7 @@ import Dashboard from './pages/dashboard'
 import Register from './pages/auth/register'
 import Protected from './components/protected'
 import ForgotPassword from './pages/auth/forgotpassword'
+import ResetPassword from './pages/auth/resetPassword'
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: '/auth/forgot-password',
     element: <ForgotPassword />
+  },
+  {
+    path: '/auth/reset-password/:token',
+    element: <ResetPassword />
   },
   {
     path: '/dashboard',

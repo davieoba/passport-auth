@@ -72,7 +72,6 @@ const Modal = ({ isOpen, setIsOpen, loading }) => {
             </div>
           </div>
 
-
           {loading ?
             <SvgSpinners90Ring className='h-10 w-10' />
             :

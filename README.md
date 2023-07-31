@@ -31,3 +31,7 @@ useful links
 [yt-lama-dev](https://www.youtube.com/watch?v=7K9kDrtc4S8)
 
 [yt-coder-one](https://www.youtube.com/watch?v=yICiz12SdI4)
+
+[why-token-based-auth-is-better](https://www.digitalocean.com/community/tutorials/the-ins-and-outs-of-token-based-authentication#how-token-based-works)
+
+[doing-microservice-user-session-right](https://hackernoon.com/doing-microservices-user-sessions-right-the-fundamentals-hj3z34nu)
