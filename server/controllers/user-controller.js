@@ -47,8 +47,6 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   try {
     const data = await new Email().resetpasswordEmail(resetLink, user.name, 'Reset password', user.email)
 
-    console.log({ data })
-
     res.status(200).json({
       message: 'Email sent successfully',
       data: data
@@ -61,3 +59,29 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 })
 
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const password = req.body.password
+  const resetToken = req.params.token
+
+  // hast the token 
+  const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+
+  // search for the user with the hashedToken and the reset password expiry time
+  const user = await User.findOne({
+    resetToken: hashedToken,
+    passwordResetExpire: { $gt: new Date() }
+  })
+
+  if (!user) return res.status(400).json({ status: 'fail', message: 'invalid or expired token' })
+
+  user.password = await bcrypt.hash(password, 10)
+  user.resetToken = undefined
+  user.passwordResetExpire = undefined
+
+  await user.save()
+
+  res.status(200).json({
+    message: 'Password reset successful'
+  })
+
+})

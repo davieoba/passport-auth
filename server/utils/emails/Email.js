@@ -17,7 +17,6 @@ class Email {
         subject: subject,
         html: resetpasswordTemplate(resetLink, user)
       })
-      console.log({ data })
       return data
 
     } catch (err) {
