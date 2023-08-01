@@ -36,6 +36,21 @@ const ResetPassword = ({ userFirstname = 'David', resetPasswordLink = 'http://lo
               <Button style={button} className='py-[12px] text-center flex items-center justify-center' href={resetPasswordLink}>
                 Reset password
               </Button>
+
+              <Container className='flex items-center gap-x-2'>
+                <Text className=''>
+                  or copy this
+                </Text>
+
+                <Link style={anchor} href={resetPasswordLink}>
+                  {resetPasswordLink}
+                </Link>
+
+                <Text>
+                  and paste in your browser url
+                </Text>
+              </Container>
+
               <Text style={text}>
                 If you don&apos;t want to change your password or didn&apos;t
                 request this, just ignore and delete this message.
@@ -84,12 +99,7 @@ const button = {
   fontSize: '15px',
   textDecoration: 'none',
   textAlign: 'center',
-  display: 'flex',
-  alignItems: 'center',
-  justifyItems: 'center',
   width: '210px',
-  // padding: '40px 7px',
-  // height: '40px',
 }
 
 const anchor = {

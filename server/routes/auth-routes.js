@@ -1,6 +1,6 @@
 const passport = require('passport')
 const { checkCookie } = require('../utils/middleware')
-const { register, login } = require('../controllers/user-controller')
+const { register, login, forgotPassword } = require('../controllers/user-controller')
 const router = require('express').Router()
 const { Resend } = require('resend')
 const { resetpasswordTemplate } = require('../utils/emails/password-template')
@@ -69,18 +69,20 @@ router.get('/google/redirect', sign_in_with_google, async (req, res, next) => {
   res.end()
 })
 
-router.get('/forgot-password', (req, res, next) => {
-  resend.emails.send({
-    from: 'Sage-Auth@resend.dev',
-    to: 'bodunrindavidbond@gmail.com',
-    subject: 'Reset Password',
-    html: resetpasswordTemplate,
-  })
+// router.get('/forgot-password', (req, res, next) => {
+//   resend.emails.send({
+//     from: 'Sage-Auth@resend.dev',
+//     to: 'bodunrindavidbond@gmail.com',
+//     subject: 'Reset Password',
+//     html: resetpasswordTemplate,
+//   })
 
-  res.status(200).json({
-    status: 'success',
-    message: 'Email sent'
-  })
-})
+//   res.status(200).json({
+//     status: 'success',
+//     message: 'Email sent'
+//   })
+// })
+
+router.post('/forgot-password', forgotPassword)
 
 module.exports = router
