@@ -23,7 +23,7 @@ const ResetPassword = ({ userFirstname = 'David', resetPasswordLink = 'http://lo
     <Tailwind>
       <Html>
         <Head />
-        <Preview>Dropbox reset your password</Preview>
+        <Preview>Sage-Auth reset your password</Preview>
         <Body style={main}>
           <Container style={container}>
             <Text className='text-[20px] font-bold uppercase'>Sage-Auth</Text>
