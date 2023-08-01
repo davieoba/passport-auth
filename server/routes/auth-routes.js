@@ -2,6 +2,10 @@ const passport = require('passport')
 const { checkCookie } = require('../utils/middleware')
 const { register, login } = require('../controllers/user-controller')
 const router = require('express').Router()
+const { Resend } = require('resend')
+const { resetpasswordTemplate } = require('../utils/emails/password-template')
+
+const resend = new Resend('re_hhEuenyp_DJXxeJ8yACiCdT7FAUHzLJCR')
 
 router.get('/', (req, res, user) => {
   console.log(req.cookies)
@@ -51,7 +55,6 @@ const sign_in_with_google = (req, res, next) => {
     scope: ['openid', 'profile', 'email'],
     session: true
   })(req, res, next)
-
 }  
 
 router.get('/google', sign_in_with_google)
@@ -64,6 +67,20 @@ router.get('/google/redirect', sign_in_with_google, async (req, res, next) => {
   res.cookie('token', 'some-cookie-very-serious-data', { secure: true, httpOnly: true, expires: expirationDate })
 
   res.end()
+})
+
+router.get('/forgot-password', (req, res, next) => {
+  resend.emails.send({
+    from: 'Sage-Auth@resend.dev',
+    to: 'bodunrindavidbond@gmail.com',
+    subject: 'Reset Password',
+    html: resetpasswordTemplate,
+  })
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Email sent'
+  })
 })
 
 module.exports = router
