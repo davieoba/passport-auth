@@ -33,7 +33,8 @@ const ResetPassword = ({ userFirstname = 'David', resetPasswordLink = 'http://lo
                 Someone recently requested a password change for your Sage
                 account. If this was you, you can set a new password here:
               </Text>
-              <Button style={button} className='py-[12px] text-center flex items-center justify-center' href={resetPasswordLink}>
+              <Button style={button} pX={20}
+                pY={12} className='text-center flex items-center justify-center' href={resetPasswordLink}>
                 Reset password
               </Button>
 
@@ -99,7 +100,6 @@ const button = {
   fontSize: '15px',
   textDecoration: 'none',
   textAlign: 'center',
-  width: '210px',
 }
 
 const anchor = {
