@@ -35,3 +35,17 @@ useful links
 [why-token-based-auth-is-better](https://www.digitalocean.com/community/tutorials/the-ins-and-outs-of-token-based-authentication#how-token-based-works)
 
 [doing-microservice-user-session-right](https://hackernoon.com/doing-microservices-user-sessions-right-the-fundamentals-hj3z34nu)
+
+## advantages of token based authentication 
+- this has many advantages such as scalability, using jwt as a means of authentication means that your application can be scalable,
+- another things is, if other applications require a token from my application to work, using token based authentication is very good in this scenario
+- it is stateless and by this we don't have to store information on the server
+
+>  No session information means your application can scale and add more machines as necessary without worrying about where a user is logged in.
+
+## disadvantages of token based authentication
+- security reason: if someone is able to get your token then u are screwed
+
+## how to solve this problem
+- reduce/limit the validity time for a token
+- using server side session with redis to check the validity of the token anytime there is a request to the api

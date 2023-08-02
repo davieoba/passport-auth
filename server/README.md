@@ -1,6 +1,6 @@
 - [ ] create protected route
 - [ ] create an authorized endpoint 
-- [ ] forgot password
+- [ ] forgot password and reset password
 
 ## forgot password
 - the user enters thier email
