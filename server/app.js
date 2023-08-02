@@ -13,6 +13,7 @@ const UserRoutes = require('./routes/user-routes')
 require('./utils/passport')
 require('./utils/passport-local')
 const { MONGODB_URI, SESSION_KEY } = require('./utils/config')
+const helmet = require('helmet')
 
 
 mongoose.connect(MONGODB_URI)
@@ -47,7 +48,7 @@ app.use(cookieSession({
 
 app.use(passport.initialize())
 app.use(passport.session())
-
+app.use(helmet())
 
 app.use('/api/v1/auth', AuthRoutes)
 app.use('/api/v1', UserRoutes)

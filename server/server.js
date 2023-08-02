@@ -5,3 +5,8 @@ app.listen(5000, () => {
 application started on port 5000 🚀
   `)
 })
+
+process.on('uncaughtException', function (err) {
+  console.log(err)
+  process.exit()
+})
