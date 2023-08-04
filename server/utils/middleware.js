@@ -7,9 +7,9 @@ exports.checkCookie = (req, res, next) => {
     next()
   } else {
     // send a false response to the user and then attach this url to the json response
-    res.status(401).json({
+    return res.status(401).json({
       message: 'Invalid Credentials, your email or password is not correct',
-      redirectUrl: 'http://localhost:5173/auth/login'
+      redirectUrl: 'http://localhost:5000/auth/login'
     })
     // res.redirect('http://localhost:5173/auth/login')
   }

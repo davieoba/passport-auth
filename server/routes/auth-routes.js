@@ -4,8 +4,9 @@ const { register, login, forgotPassword, resetPassword } = require('../controlle
 const router = require('express').Router()
 
 router.get('/', (req, res, user) => {
-  console.log(req.cookies)
-  console.log(req.user)
+  console.log('req.cookies = ', req.cookies)
+  console.log('req.user =  ', req.user)
+  console.log('req.session', req.session)
   res.send(req.cookies)
 })
 
@@ -16,17 +17,20 @@ const sign_in_with_jwt = (req, res, next) => {
 
     // console.log('sign in with jwt', user)
 
+    // it is either you make use of req.user || req.session but not the 2 of them
     req.user = user
+    // req.session = user
     // console.log(req.user)
 
     const expirationDate = new Date(Date.now() + 60 * 60 * 1000)
     res.cookie('token', 'some-cookie-very-serious-data', { secure: true, httpOnly: true, expires: expirationDate })
 
-    console.log(req.isAuthenticated)
+    // console.log(req.isAuthenticated)
 
-    req.logIn(user, (err) => {
+    return req.logIn(user, (err) => {
       if (err) throw err
       console.log(req.user)
+      req.user = user
       res.send('successfully authenticated')
     })
 

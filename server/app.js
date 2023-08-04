@@ -47,7 +47,7 @@ app.use(cookieSession({
 // }))
 
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session()) // this is what connects passport and my cookie session
 app.use(helmet())
 
 app.use('/api/v1/auth', AuthRoutes)
