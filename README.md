@@ -49,3 +49,4 @@ useful links
 ## how to solve this problem
 - reduce/limit the validity time for a token
 - using server side session with redis to check the validity of the token anytime there is a request to the api
+- 
